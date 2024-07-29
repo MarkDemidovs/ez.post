@@ -1,14 +1,78 @@
-import express from "express"
-import {PORT} from "./config.js"
+import express from "express";
+import { PORT, mongodbURL } from "./config.js";
+import mongoose from "mongoose";
+import { Post } from "./models/postModel.js";
+const app = express();
 
-const app = express()
+app.use(express.json());
 
-app.get("/", (req,res) => {
-    console.log(req)
-    return res.status(200).json({"message": "welcome"})
+app.get("/", (req, res) => {
+  console.log(req);
+  return res.status(200).json({ message: "welcome" });
 });
 
-app.listen(PORT, () => {
-    console.log("listening to port 5000");
-    console.log("START")
+// Route for saving a new post
+app.post("/posts", async (req, res) => {
+  try {
+    if (!req.body.title || !req.body.content) {
+      return res.status(400).send({
+        message: "Send all required fields: title, content",
+      });
+    }
+    const newPost = {
+      title: req.body.title,
+      content: req.body.content,
+      author: req.body.author,
+    };
+
+    const post = await Post.create(newPost);
+
+    return res.status(201).send(post);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: err.message });
+  }
+});
+
+// Route for getting all post from database
+app.get("/posts", async (req,res) => {
+    try {
+        const posts = await Post.find({});
+        return res.status(200).json(posts)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send({message: err.message})
+    }
 })
+
+// shouldnt be used that much except for requests:
+// deleting posts
+
+app.delete("/posts/:id", async (req,res) => {
+    try {
+        const { id } = req.params;
+        const result = await Post.findByIdAndDelete(id);
+
+        if (!result) {
+            return res.status(404).json({message: "The ID for the post was not found."})
+        } else {
+            return res.status(200).send({message: `Post with the ID of ${id} was deleted.`})
+        }
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send({message: err.message})
+    }
+})
+
+mongoose
+  .connect(mongodbURL)
+  .then(() => {
+    console.log("App connected to database.");
+
+    app.listen(PORT, () => {
+      console.log("listening to port 5000");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });

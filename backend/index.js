@@ -2,10 +2,11 @@ import express from "express";
 import { PORT, mongodbURL } from "./config.js";
 import mongoose from "mongoose";
 import { Post } from "./models/postModel.js";
+import cors from 'cors'
 const app = express();
 
 app.use(express.json());
-
+app.use(cors())
 app.get("/", (req, res) => {
   console.log(req);
   return res.status(200).json({ message: "welcome" });

@@ -1,0 +1,4 @@
+# ignoring all files in any directory with the name 
+
+backend/config.js
+backend/node_modules

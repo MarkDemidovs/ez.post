@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import AddItem from "./AddItem";
 
 export default function App() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -26,6 +28,7 @@ export default function App() {
 
   return (
     <div>
+      <AddItem />
       <h1>Post Titles</h1>
       <ul>
         {posts.map((post) => (

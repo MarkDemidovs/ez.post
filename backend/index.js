@@ -65,6 +65,17 @@ app.delete("/posts/:id", async (req,res) => {
     }
 })
 
+app.delete("/posts", async (req, res) => {
+  try {
+    await Post.deleteMany(); // Deletes all posts
+    return res.status(200).send({ message: "All posts have been deleted." });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send({ message: err.message });
+  }
+});
+
+
 mongoose
   .connect(mongodbURL)
   .then(() => {

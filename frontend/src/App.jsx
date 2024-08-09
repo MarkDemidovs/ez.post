@@ -5,7 +5,7 @@ import AddItem from "./AddItem";
 export default function App() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [selectedBook, setSelectedBook] = useState(null); // State to hold selected book details
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -22,19 +22,41 @@ export default function App() {
     fetchPosts();
   }, []); // Empty dependency array means this effect runs once on mount
 
+  const handleDetailsClick = (book) => {
+    setSelectedBook(book); // Set selected book to the clicked book
+  };
+
   if (loading) {
     return <div>Loading...</div>; // Show loading indicator while fetching
+  }
+
+  if (selectedBook) {
+    // Render selected book details
+    return (
+      <div>
+        <h2>Book Details</h2>
+        <p>ID: {selectedBook._id}</p>
+        <p>Title: {selectedBook.title}</p>
+        <p>Author: {selectedBook.author}</p>
+        <p>Content: {selectedBook.content}</p>
+        <button onClick={() => setSelectedBook(null)}>Back to posts</button>
+      </div>
+    );
   }
 
   return (
     <div>
       <AddItem />
-      <h1>Post Titles</h1>
+      <h1>Newest Posts</h1>
+
       <ul>
         {posts.map((post) => (
-          <li key={post._id}>{post.title} <span className="authorTitle">Created by </span> <span className="authorName">{post.author}</span></li> // Assuming each post has a unique '_id' field
+          <li key={post._id}>
+            {post.title} <span className="authorTitle">Created by </span>{" "}
+            <span className="authorName">{post.author}</span>
+            <button onClick={() => handleDetailsClick(post)}>Details</button>
+          </li>
         ))}
-        
       </ul>
     </div>
   );

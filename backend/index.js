@@ -65,6 +65,22 @@ app.delete("/posts/:id", async (req,res) => {
     }
 })
 
+app.get("/posts/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found." });
+    }
+
+    return res.status(200).json(post);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send({ message: err.message });
+  }
+});
+
 app.delete("/posts", async (req, res) => {
   try {
     await Post.deleteMany(); // Deletes all posts

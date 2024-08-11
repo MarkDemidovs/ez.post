@@ -1,19 +1,28 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate, useLocation } from "react-router-dom"; // Import useNavigate
 import AddItem from "./AddItem";
 import { useParams } from "react-router-dom";
+
+const POSTS_PER_PAGE = 10;
+const MAX_PAGES_TO_DISPLAY = 10; // Maximum number of pages to display
 
 export default function App() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showPosts, setShowPosts] = useState(true); // State to control visibility of posts
+  const [totalPosts, setTotalPosts] = useState(0); // Total number of posts for pagination
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const res = await axios.get("http://localhost:5000/posts");
-        setPosts(res.data);
+        const fetchedPosts = res.data;
+
+        // Only keep the 100 most recent posts
+        const recentPosts = fetchedPosts.slice(-100);
+        setPosts(recentPosts);
+        setTotalPosts(recentPosts.length); // Store total number of posts
       } catch (err) {
         console.error(err);
       } finally {
@@ -31,31 +40,59 @@ export default function App() {
   return (
     <div>
       <AddItem />
-      <h1>Newest Posts</h1>
-
-      {/* Render posts only if showPosts is true */}
-      {showPosts && (
-        <ul>
-          {posts.map((post) => (
-            <li key={post._id}>
-              {post.title} 
-              <span className="authorTitle">Created by </span>
-              <span className="authorName">{post.author}</span>
-              <Link to={`/posts/${post._id}`}>Details</Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      
+      <h1>All posts (sorted by oldest)</h1>
+      
+      <NavigationBar totalPosts={totalPosts} />
 
       <Routes>
-        <Route 
-          path="/posts/:id" 
-          element={<PostDetails setShowPosts={setShowPosts} />} 
-        /> 
+        <Route path="/" element={<PostList posts={posts} setShowPosts={setShowPosts} />} />
+        <Route path="/posts/:id" element={<PostDetails setShowPosts={setShowPosts} />} />
       </Routes>
     </div>
   );
 }
+
+const NavigationBar = ({ totalPosts }) => {
+  const pages = Math.min(Math.ceil(totalPosts / POSTS_PER_PAGE), MAX_PAGES_TO_DISPLAY); // Limit to 10 pages
+  return (
+    <nav>
+      <h2>Navigation</h2>
+      <ul>
+        {[...Array(pages).keys()].map(page => (
+          <li key={page + 1}>
+            <Link to={`/?page=${page + 1}`}>{`Page ${page + 1}`}</Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+const PostList = ({ posts, setShowPosts }) => {
+  const query = new URLSearchParams(useLocation().search);
+  const page = parseInt(query.get("page"), 10) || 1; // Default to first page
+
+  // Calculate posts to display
+  const startIndex = (page - 1) * POSTS_PER_PAGE;
+  const selectedPosts = posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+
+  // Show posts list
+  setShowPosts(true);
+
+  return (
+    <ul>
+      {selectedPosts.map((post) => (
+        <li key={post._id}>
+          {post.title} 
+          <span className="authorTitle">Created by </span>
+          <span className="authorName">{post.author}</span>
+          <Link to={`/posts/${post._id}`}>Details</Link>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 const PostDetails = ({ setShowPosts }) => {
   const [post, setPost] = useState(null);

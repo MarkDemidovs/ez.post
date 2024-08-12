@@ -1,10 +1,18 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate, useLocation } from "react-router-dom"; // Import useNavigate
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useNavigate,
+  useLocation,
+} from "react-router-dom"; // Import useNavigate
 import AddItem from "./AddItem";
 import { useParams } from "react-router-dom";
+import NavBar from "./Navbar";
 
-const POSTS_PER_PAGE = 10;
+const POSTS_PER_PAGE = 30;
 const MAX_PAGES_TO_DISPLAY = 10; // Maximum number of pages to display
 
 export default function App() {
@@ -38,28 +46,39 @@ export default function App() {
   }
 
   return (
-    <div>
-      <AddItem />
-      
-      <h1>All posts (sorted by oldest)</h1>
-      
-      <NavigationBar totalPosts={totalPosts} />
+    <>
+      <NavBar />
+      <div>
+        <AddItem />
 
-      <Routes>
-        <Route path="/" element={<PostList posts={posts} setShowPosts={setShowPosts} />} />
-        <Route path="/posts/:id" element={<PostDetails setShowPosts={setShowPosts} />} />
-      </Routes>
-    </div>
+        <h1 id="titlePosts">All posts (sorted by oldest)</h1>
+
+        <NavigationBar totalPosts={totalPosts} />
+
+        <Routes>
+          <Route
+            path="/"
+            element={<PostList posts={posts} setShowPosts={setShowPosts} />}
+          />
+          <Route
+            path="/posts/:id"
+            element={<PostDetails setShowPosts={setShowPosts} />}
+          />
+        </Routes>
+      </div>
+    </>
   );
 }
 
 const NavigationBar = ({ totalPosts }) => {
-  const pages = Math.min(Math.ceil(totalPosts / POSTS_PER_PAGE), MAX_PAGES_TO_DISPLAY); // Limit to 10 pages
+  const pages = Math.min(
+    Math.ceil(totalPosts / POSTS_PER_PAGE),
+    MAX_PAGES_TO_DISPLAY
+  ); // Limit to 10 pages
   return (
     <nav>
-      <h2>Navigation</h2>
-      <ul>
-        {[...Array(pages).keys()].map(page => (
+      <ul id="ulNav">
+        {[...Array(pages).keys()].map((page) => (
           <li key={page + 1}>
             <Link to={`/?page=${page + 1}`}>{`Page ${page + 1}`}</Link>
           </li>
@@ -81,13 +100,13 @@ const PostList = ({ posts, setShowPosts }) => {
   setShowPosts(true);
 
   return (
-    <ul>
+    <ul id="ulPosts">
       {selectedPosts.map((post) => (
         <li key={post._id}>
-          {post.title} 
+          {post.title}
           <span className="authorTitle">Created by </span>
           <span className="authorName">{post.author}</span>
-          <Link to={`/posts/${post._id}`}>Details</Link>
+          <Link to={`/posts/${post._id}`}>View Post</Link>
         </li>
       ))}
     </ul>
@@ -97,8 +116,8 @@ const PostList = ({ posts, setShowPosts }) => {
 const PostDetails = ({ setShowPosts }) => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { id } = useParams(); 
-  
+  const { id } = useParams();
+
   const navigate = useNavigate(); // Use useNavigate hook to programmatically navigate
 
   useEffect(() => {
@@ -114,10 +133,10 @@ const PostDetails = ({ setShowPosts }) => {
     };
 
     fetchPost();
-  
+
     // Hide posts list when post details are shown
     setShowPosts(false);
-   
+
     return () => setShowPosts(true); // Show posts again when navigating away
   }, [id, setShowPosts]);
 
@@ -131,7 +150,7 @@ const PostDetails = ({ setShowPosts }) => {
 
   const handleBack = () => {
     setShowPosts(true); // Show posts when going back to the posts list
-    navigate('/'); // Navigate back to the posts list
+    navigate("/"); // Navigate back to the posts list
   };
 
   return (

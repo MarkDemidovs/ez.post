@@ -10,12 +10,12 @@ export default function AddItem() {
 
   return (
     <div>
-      <button
+      <button id="addButton"
         onClick={() => {
           isPressed((prevPressed) => !prevPressed);
         }}
       >
-        +
+        + Create a Post
       </button>
       {pressed && (
         <AddMenu />

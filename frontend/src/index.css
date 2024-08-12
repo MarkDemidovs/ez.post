@@ -1,7 +1,90 @@
-.authorTitle{
-    color: gray
+.authorTitle {
+  color: gray;
+  margin-left: 6px;
+  margin-right: 1px;
 }
 
 .authorName {
-    color: rgb(53, 53, 53)
+  color: rgb(21, 29, 141);
+  padding-right: 6px;
+}
+
+body {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-family: "Outfit", sans-serif;
+}
+
+#topBar {
+  background-color: #3366cc;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+#topBar h4 {
+  font-weight: 700;
+  margin-left: 15px;
+  font-size: x-large;
+}
+#topBar h5 {
+  font-weight: 500;
+  margin-right: 15px;
+}
+#topBar h4,
+#topBar h5 {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#titlePosts {
+  margin-left: 30px;
+  margin-bottom: none;
+  border: none;
+  padding: none;
+  color: #1a4292;
+}
+
+#ulNav {
+    display: flex;border: none;
+    list-style-type: none;
+    text-decoration-line: none;
+
+    }
+#ulNav li {
+    margin-left: 10px;
+    text-decoration: none;
+
+}
+
+#ulPosts {
+    margin-left: 10px;
+    list-style-type: none;
+}
+
+
+#addButton {
+    transition: background-color 0.15s ease-out;
+
+    margin-left: 30px;
+    margin-top: 15px;
+    background-color: #3366cc;
+    color: white;
+    font-family: "Outfit", sans-serif;
+    border: 2px solid #1a4292;
+    border-radius: 6px;
+    font-size: large;
+    font-weight: 500;
+}
+
+#addButton:hover {
+    transition: background-color 0.15s ease-out;
+    background-color: #234da0;
+}
+
+#addButton:active{
+    transition: background-color 0.15s ease-out;
+    background-color: #132d61;
 }

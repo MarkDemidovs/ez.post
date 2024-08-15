@@ -27,7 +27,7 @@ export default function PostDetails() {
   }
 
   if (!post) {
-    return <div>Post not found</div>; // Handle case where post is not found
+    return <div>Based on the ID Given, The Post not found</div>; // Handle case where post is not found
   }
 
   return (
@@ -37,6 +37,8 @@ export default function PostDetails() {
       <p>Title: {post.title}</p>
       <p>Author: {post.author}</p>
       <p>Content: {post.content}</p>
+      <p>Stamps: {post.stamps}</p>
+      <button>Stamp the Post</button>
     </div>
   );
 }

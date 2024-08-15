@@ -19,6 +19,10 @@ const postSchema = mongoose.Schema(
       min: 10,
       max: 7000,
     },
+    stamps: {
+      type: Number,
+      default: 0,
+    }
   },
   {
     timestamps: true,

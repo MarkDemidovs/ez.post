@@ -106,6 +106,7 @@ const PostList = ({ posts, setShowPosts }) => {
           {post.title}
           <span className="authorTitle">Created by </span>
           <span className="authorName">{post.author}</span>
+          <span>{post.stamps} Stamps</span>
           <Link to={`/posts/${post._id}`}>View Post</Link>
         </li>
       ))}
@@ -145,13 +146,17 @@ const PostDetails = ({ setShowPosts }) => {
   }
 
   if (!post) {
-    return <div>Post not found.</div>;
+    return <div>Based on the ID Given, The Post not found.</div>;
   }
 
   const handleBack = () => {
     setShowPosts(true); // Show posts when going back to the posts list
     navigate("/"); // Navigate back to the posts list
   };
+
+  const stampPost = () => {
+    // here {post.stamps++}
+  }
 
   return (
     <div>
@@ -160,6 +165,8 @@ const PostDetails = ({ setShowPosts }) => {
       <p>Title: {post.title}</p>
       <p>Author: {post.author}</p>
       <p>Content: {post.content}</p>
+      <p>Stamps: {post.stamps}</p>
+      <button onClick={stampPost}>Stamp the Post</button>
       <button onClick={handleBack}>Back to Posts</button>
     </div>
   );

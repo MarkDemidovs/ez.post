@@ -49,10 +49,11 @@ export default function App() {
     <>
       <NavBar />
       <div>
+        <div className="topItems">
+        <h1 id="titlePosts">All posts (sorted by oldest)</h1>
         <AddItem />
 
-        <h1 id="titlePosts">All posts (sorted by oldest)</h1>
-
+        </div>
         <NavigationBar totalPosts={totalPosts} />
 
         <Routes>
@@ -106,7 +107,6 @@ const PostList = ({ posts, setShowPosts }) => {
           {post.title}
           <span className="authorTitle">Created by </span>
           <span className="authorName">{post.author}</span>
-          <span>{post.stamps} Stamps</span>
           <Link to={`/posts/${post._id}`}>View Post</Link>
         </li>
       ))}
@@ -154,9 +154,9 @@ const PostDetails = ({ setShowPosts }) => {
     navigate("/"); // Navigate back to the posts list
   };
 
-  const stampPost = () => {
+  /*const stampPost = () => {
     // here {post.stamps++}
-  }
+  }*/
 
   return (
     <div>
@@ -165,9 +165,14 @@ const PostDetails = ({ setShowPosts }) => {
       <p>Title: {post.title}</p>
       <p>Author: {post.author}</p>
       <p>Content: {post.content}</p>
-      <p>Stamps: {post.stamps}</p>
-      <button onClick={stampPost}>Stamp the Post</button>
       <button onClick={handleBack}>Back to Posts</button>
     </div>
   );
 };
+
+
+// the stamps have been stamped out. 
+
+// <button onClick={stampPost}>Stamp the Post</button>
+// <p>Stamps: {post.stamps}</p>
+// <span>{post.stamps} Stamps</span>

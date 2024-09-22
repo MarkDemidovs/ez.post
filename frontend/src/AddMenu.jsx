@@ -52,7 +52,7 @@ export default function AddMenu() {
         onChange={(e) => setAuthor(e.target.value)}
         placeholder="Enter the name of the author *not required..."
       />
-      <input
+      <textarea
         required
         value={content}
         onChange={(e) => setContent(e.target.value)}

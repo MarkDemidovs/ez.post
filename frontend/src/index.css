@@ -1,6 +1,6 @@
 .authorTitle {
   color: gray;
-  margin-left: 6px;
+  margin-left: 5px;
   margin-right: 1px;
 }
 
@@ -40,7 +40,7 @@ body {
 }
 
 #titlePosts {
-  margin-left: 30px;
+  margin-left: 35px;
   margin-bottom: none;
   border: none;
   padding: none;
@@ -51,16 +51,16 @@ body {
     display: flex;border: none;
     list-style-type: none;
     text-decoration-line: none;
+    border: none;
 
     }
 #ulNav li {
-    margin-left: 10px;
+    
     text-decoration: none;
 
 }
 
 #ulPosts {
-    margin-left: 10px;
     list-style-type: none;
 }
 
@@ -68,8 +68,9 @@ body {
 #addButton {
     transition: background-color 0.15s ease-out;
 
-    margin-left: 30px;
-    margin-top: 15px;
+    margin-left: 25px;
+  
+    margin-top: 28px;
     background-color: #3366cc;
     color: white;
     font-family: "Outfit", sans-serif;
@@ -77,6 +78,7 @@ body {
     border-radius: 6px;
     font-size: large;
     font-weight: 500;
+    
 }
 
 #addButton:hover {
@@ -87,4 +89,8 @@ body {
 #addButton:active{
     transition: background-color 0.15s ease-out;
     background-color: #132d61;
+}
+
+.topItems {
+  display: flex
 }

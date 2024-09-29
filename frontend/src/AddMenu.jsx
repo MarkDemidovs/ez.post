@@ -38,7 +38,7 @@ export default function AddMenu() {
 
   return (
     <div>
-      <h2>Add a title</h2>
+      <h2>Post Creator 1.1</h2>
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}

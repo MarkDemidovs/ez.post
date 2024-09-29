@@ -159,13 +159,12 @@ const PostDetails = ({ setShowPosts }) => {
   }*/
 
   return (
-    <div>
-      <h2>Post Details</h2>
+    <div className="fullPost">
+      <h1 className="postTitlte">{post.title}</h1>
+      <p className="postAuthor">By: {post.author}</p>
       <p>ID: {post._id}</p>
-      <p>Title: {post.title}</p>
-      <p>Author: {post.author}</p>
       <div className="inputFielding">{post.content}</div>
-      <button onClick={handleBack}>Back to Posts</button>
+      <button className="backButton" onClick={handleBack}>Back to Posts</button>
     </div>
   );
 };

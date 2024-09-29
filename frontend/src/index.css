@@ -44,7 +44,7 @@ body {
   margin-bottom: none;
   border: none;
   padding: none;
-  color: #1a4292;
+  color: #1a4292;Post
 }
 
 #ulNav {
@@ -99,4 +99,44 @@ body {
 
 .inputFielding {
   white-space: pre-wrap;
+  border: hwb(0 0% 100% / 0.158) 0.1px solid;
+  margin-right: 100px;
+}
+
+.fullPost {
+  margin-left: 40px;
+}
+
+.backButton {
+  transition: background-color 0.15s ease-out;
+
+  margin-top: 28px;
+  background-color: #3366cc;
+  color: white;
+  font-family: "Outfit", sans-serif;
+  border: 2px solid #1a4292;
+  border-radius: 6px;
+  font-size: large;
+  font-weight: 500;
+  
+}
+
+.backButton:hover {
+  transition: background-color 0.15s ease-out;
+  background-color: #234da0;
+}
+
+.backButton:active{
+  transition: background-color 0.15s ease-out;
+  background-color: #132d61;
+}
+
+
+.postTitle {
+  padding: 0;
+  margin: 0;
+}
+
+.postAuthor {
+  color:#132d61
 }

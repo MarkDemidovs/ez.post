@@ -52,6 +52,7 @@ body {
     list-style-type: none;
     text-decoration-line: none;
     border: none;
+    
 
     }
 #ulNav li {
@@ -93,4 +94,9 @@ body {
 
 .topItems {
   display: flex
+}
+
+
+.inputFielding {
+  white-space: pre-wrap;
 }

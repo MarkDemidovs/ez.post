@@ -164,7 +164,7 @@ const PostDetails = ({ setShowPosts }) => {
       <p>ID: {post._id}</p>
       <p>Title: {post.title}</p>
       <p>Author: {post.author}</p>
-      <p>Content: {post.content}</p>
+      <div className="inputFielding">{post.content}</div>
       <button onClick={handleBack}>Back to Posts</button>
     </div>
   );

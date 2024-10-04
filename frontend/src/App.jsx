@@ -11,6 +11,7 @@ import {
 import AddItem from "./AddItem";
 import { useParams } from "react-router-dom";
 import NavBar from "./Navbar";
+import Footer from "./footer";
 
 const POSTS_PER_PAGE = 30;
 const MAX_PAGES_TO_DISPLAY = 10; // Maximum number of pages to display
@@ -50,7 +51,7 @@ export default function App() {
       <NavBar />
       <div>
         <div className="topItems">
-        <h1 id="titlePosts">All posts (sorted by oldest)</h1>
+        <h1 id="titlePosts">Recent Posts (sorted by oldest)</h1>
         <AddItem />
 
         </div>
@@ -67,6 +68,7 @@ export default function App() {
           />
         </Routes>
       </div>
+      <Footer />
     </>
   );
 }

@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors())
 app.get("/", (req, res) => {
   console.log(req);
-  return res.status(200).json({ message: "welcome" });
+  return res.status(200).json({ message: "welcome all those who head to the database. reminder that all content is under */posts, may god bless you" });
 });
 
 // Route for saving a new post

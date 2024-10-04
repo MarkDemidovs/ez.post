@@ -140,3 +140,10 @@ body {
 .postAuthor {
   color:#132d61
 }
+
+#footer {
+  color: rgba(0, 0, 0, 0.178);
+  margin-left: 40px;
+
+  display: flex;
+}
